@@ -1,0 +1,219 @@
+with tipos; use tipos;
+with Ada.Text_Io; use Ada.Text_Io;
+with escribir_lista_partidos_votos, escribir_escainos, calcular_escainos;
+
+procedure prueba_calcular_escainos is
+
+   L_P_V_Bizkaia,
+   L_P_V_Araba,
+   L_P_V_Gipuzkoa : T_Lista_Partidos_Votos;
+   Escainos       : T_Lista_Escainos;
+
+begin
+--     --- Caso 1
+--     put_line("Caso 1");
+--     --- Ahora vamos a modificar L_P_V_Bizkaia tal que haya 6 partidos
+--     L_P_V_Bizkaia.Num_Partidos:= 6;
+--     L_P_V_Bizkaia.Tabla_Partidos(1) := ("         PNV/EA", 264774);
+--     L_P_V_Bizkaia.Tabla_Partidos(2) := ("       PSE-PSOE", 151347);
+--     L_P_V_Bizkaia.Tabla_Partidos(3) := ("             PP", 113867);
+--     L_P_V_Bizkaia.Tabla_Partidos(4) := ("           EHAK",  65431);
+--     L_P_V_Bizkaia.Tabla_Partidos(5) := ("          EB-IU",  36258);
+--     L_P_V_Bizkaia.Tabla_Partidos(6) := ("         ARALAR",  10187);
+--     --- Ahora vamos a modificar L_P_V_Araba tal que haya 6 partidos
+--     L_P_V_Araba.Num_Partidos:= 6;
+--     L_P_V_Araba.Tabla_Partidos(1) := ("         PNV/EA", 51601);
+--     L_P_V_Araba.Tabla_Partidos(2) := ("             PP", 43765);
+--     L_P_V_Araba.Tabla_Partidos(3) := ("       PSE-PSOE", 43765);
+--     L_P_V_Araba.Tabla_Partidos(4) := ("           EHAK",  14180);
+--     L_P_V_Araba.Tabla_Partidos(5) := ("          EB-IU",  8395);
+--     L_P_V_Araba.Tabla_Partidos(6) := ("         ARALAR",  2541);
+--     --- Ahora vamos a modificar L_P_V_Gipuzkoa tal que haya 6 partidos
+--     L_P_V_Gipuzkoa.Num_Partidos:= 6;
+--     L_P_V_Gipuzkoa.Tabla_Partidos(1) := ("         PNV/EA", 147498);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(2) := ("           EHAK", 78088);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(3) := ("             PP", 70577);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(4) := ("       PSE-PSOE",  51163);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(5) := ("          EB-IU",  20278);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(6) := ("         ARALAR",  15273);
+--
+--     put_line("Los votos iniciales son: ");
+--     escribir_lista_partidos_votos(L_P_V_Bizkaia);
+--     escribir_lista_partidos_votos(L_P_V_Araba);
+--     escribir_lista_partidos_votos(L_P_V_Gipuzkoa);
+--
+--     put_line("El resultado final debería ser   ");
+--
+--     put_line("         PNV/EA  29");
+--     put_line("           EHAK   9");
+--     put_line("             PP  17");
+--     put_line("       PSE-PSOE  16");
+--     put_line("          EB-IU   3");
+--     put_line("         ARALAR   1");
+--     new_line(2);
+--
+--     put_line("El resultado final segun vuestro programa es   ");
+--     calcular_escainos(L_P_V_Bizkaia, L_P_V_Araba, L_P_V_Gipuzkoa, Escainos);
+--     new_line(2);
+--     escribir_escainos(Escainos);
+--     new_line(2);
+
+--     --- Caso 2 - Se presentan 6 partidos solo votan a 1
+--     put_line("Caso 2");
+--     --- Ahora vamos a modificar L_P_V_Bizkaia tal que haya 6 partidos
+--     L_P_V_Bizkaia.Num_Partidos:= 6;
+--     L_P_V_Bizkaia.Tabla_Partidos(1) := ("         PNV/EA", 264774);
+--     L_P_V_Bizkaia.Tabla_Partidos(2) := ("       PSE-PSOE", 0);
+--     L_P_V_Bizkaia.Tabla_Partidos(3) := ("             PP", 0);
+--     L_P_V_Bizkaia.Tabla_Partidos(4) := ("           EHAK",  0);
+--     L_P_V_Bizkaia.Tabla_Partidos(5) := ("          EB-IU",  0);
+--     L_P_V_Bizkaia.Tabla_Partidos(6) := ("         ARALAR",  0);
+--     --- Ahora vamos a modificar L_P_V_Araba tal que haya 6 partidos
+--     L_P_V_Araba.Num_Partidos:= 6;
+--     L_P_V_Araba.Tabla_Partidos(1) := ("         PNV/EA", 51601);
+--     L_P_V_Araba.Tabla_Partidos(2) := ("             PP", 0);
+--     L_P_V_Araba.Tabla_Partidos(3) := ("       PSE-PSOE", 0);
+--     L_P_V_Araba.Tabla_Partidos(4) := ("           EHAK",  0);
+--     L_P_V_Araba.Tabla_Partidos(5) := ("          EB-IU",  0);
+--     L_P_V_Araba.Tabla_Partidos(6) := ("         ARALAR",  0);
+--     --- Ahora vamos a modificar L_P_V_Gipuzkoa tal que haya 6 partidos
+--     L_P_V_Gipuzkoa.Num_Partidos:= 6;
+--     L_P_V_Gipuzkoa.Tabla_Partidos(1) := ("         PNV/EA", 147498);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(2) := ("           EHAK", 0);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(3) := ("             PP", 0);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(4) := ("       PSE-PSOE",  0);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(5) := ("          EB-IU",  0);
+--     L_P_V_Gipuzkoa.Tabla_Partidos(6) := ("         ARALAR",  0);
+--
+--     put_line("Los votos iniciales son: ");
+--     escribir_lista_partidos_votos(L_P_V_Bizkaia);
+--     escribir_lista_partidos_votos(L_P_V_Araba);
+--     escribir_lista_partidos_votos(L_P_V_Gipuzkoa);
+--
+--     put_line("El resultado final debería ser   ");
+--
+--     put_line("         PNV/EA  75");
+--     new_line(2);
+--
+--     put_line("El resultado final segun vuestro programa es   ");
+--     calcular_escainos(L_P_V_Bizkaia, L_P_V_Araba, L_P_V_Gipuzkoa, Escainos);
+--     new_line(2);
+--     escribir_escainos(Escainos);
+--     new_line(2);
+
+--     --- Caso 3 - Se presenta solo 1 partido
+--     put_line("Caso 3");
+--     --- Ahora vamos a modificar L_P_V_Bizkaia tal que haya 6 partidos
+--     L_P_V_Bizkaia.Num_Partidos:= 1;
+--     L_P_V_Bizkaia.Tabla_Partidos(1) := ("         PNV/EA", 264774);
+--     --- Ahora vamos a modificar L_P_V_Araba tal que haya 6 partidos
+--     L_P_V_Araba.Num_Partidos:= 1;
+--     L_P_V_Araba.Tabla_Partidos(1) := ("         PNV/EA", 51601);
+--     --- Ahora vamos a modificar L_P_V_Gipuzkoa tal que haya 6 partidos
+--     L_P_V_Gipuzkoa.Num_Partidos:= 1;
+--     L_P_V_Gipuzkoa.Tabla_Partidos(1) := ("         PNV/EA", 147498);
+--
+--     put_line("Los votos iniciales son: ");
+--     escribir_lista_partidos_votos(L_P_V_Bizkaia);
+--     escribir_lista_partidos_votos(L_P_V_Araba);
+--     escribir_lista_partidos_votos(L_P_V_Gipuzkoa);
+--
+--     put_line("El resultado final debería ser   ");
+--
+--     put_line("         PNV/EA  75");
+--     new_line(2);
+--
+--     put_line("El resultado final segun vuestro programa es   ");
+--     calcular_escainos(L_P_V_Bizkaia, L_P_V_Araba, L_P_V_Gipuzkoa, Escainos);
+--     new_line(2);
+--     escribir_escainos(Escainos);
+--     new_line(2);
+
+--     --- Caso 4 - Se presenta solo 1 partido diferente por provincia
+--     put_line("Caso 4");
+--     --- Ahora vamos a modificar L_P_V_Bizkaia tal que haya 6 partidos
+--     L_P_V_Bizkaia.Num_Partidos:= 1;
+--     L_P_V_Bizkaia.Tabla_Partidos(1) := ("         PNV/EA", 264774);
+--     --- Ahora vamos a modificar L_P_V_Araba tal que haya 6 partidos
+--     L_P_V_Araba.Num_Partidos:= 1;
+--     L_P_V_Araba.Tabla_Partidos(1) := ("             PP", 51601);
+--     --- Ahora vamos a modificar L_P_V_Gipuzkoa tal que haya 6 partidos
+--     L_P_V_Gipuzkoa.Num_Partidos:= 1;
+--     L_P_V_Gipuzkoa.Tabla_Partidos(1) := ("         ARALAR",  147498);
+--
+--     put_line("Los votos iniciales son: ");
+--     escribir_lista_partidos_votos(L_P_V_Bizkaia);
+--     escribir_lista_partidos_votos(L_P_V_Araba);
+--     escribir_lista_partidos_votos(L_P_V_Gipuzkoa);
+--
+--     put_line("El resultado final debería ser   ");
+--
+--     put_line("         PNV/EA  25");
+--     put_line("             PP  25");
+--     put_line("         ARALAR  25");
+--     new_line(2);
+--
+--     put_line("El resultado final segun vuestro programa es   ");
+--     calcular_escainos(L_P_V_Bizkaia, L_P_V_Araba, L_P_V_Gipuzkoa, Escainos);
+--     new_line(2);
+--     escribir_escainos(Escainos);
+--     new_line(2);
+
+--     --- Caso 5 - Se presenta solo 1 partido diferente por provincia excepto en una que se presentan 2
+--     put_line("Caso 4");
+--     --- Ahora vamos a modificar L_P_V_Bizkaia tal que haya 6 partidos
+--     L_P_V_Bizkaia.Num_Partidos:= 2;
+--     L_P_V_Bizkaia.Tabla_Partidos(2) := ("         PNV/EA", 49);
+--     L_P_V_Bizkaia.Tabla_Partidos(1) := ("             PP", 51);
+--     --- Ahora vamos a modificar L_P_V_Araba tal que haya 6 partidos
+--     L_P_V_Araba.Num_Partidos:= 1;
+--     L_P_V_Araba.Tabla_Partidos(1) := ("             PP", 51601);
+--     --- Ahora vamos a modificar L_P_V_Gipuzkoa tal que haya 6 partidos
+--     L_P_V_Gipuzkoa.Num_Partidos:= 1;
+--     L_P_V_Gipuzkoa.Tabla_Partidos(1) := ("         ARALAR",  147498);
+--
+--     put_line("Los votos iniciales son: ");
+--     escribir_lista_partidos_votos(L_P_V_Bizkaia);
+--     escribir_lista_partidos_votos(L_P_V_Araba);
+--     escribir_lista_partidos_votos(L_P_V_Gipuzkoa);
+--
+--     put_line("El resultado final debería ser   ");
+--
+--     put_line("         PNV/EA  12");
+--     put_line("             PP  38");
+--     put_line("         ARALAR  25");
+--     new_line(2);
+--
+--     put_line("El resultado final segun vuestro programa es   ");
+--     calcular_escainos(L_P_V_Bizkaia, L_P_V_Araba, L_P_V_Gipuzkoa, Escainos);
+--     new_line(2);
+--     escribir_escainos(Escainos);
+--     new_line(2);
+
+
+--     --- Caso 6 - Solo se vota en Bizkaia
+--     put_line("Caso 4");
+--     --- Ahora vamos a modificar L_P_V_Bizkaia tal que haya 6 partidos
+--     L_P_V_Bizkaia.Num_Partidos:= 1;
+--     L_P_V_Bizkaia.Tabla_Partidos(1) := ("         PNV/EA", 49);
+--
+--
+--
+--     put_line("Los votos iniciales son: ");
+--     escribir_lista_partidos_votos(L_P_V_Bizkaia);
+--     escribir_lista_partidos_votos(L_P_V_Araba);
+--     escribir_lista_partidos_votos(L_P_V_Gipuzkoa);
+--
+--     put_line("El resultado final debería ser   ");
+--
+--     put_line("         PNV/EA  25");
+--     new_line(2);
+--
+--     put_line("El resultado final segun vuestro programa es   ");
+--     calcular_escainos(L_P_V_Bizkaia, L_P_V_Araba, L_P_V_Gipuzkoa, Escainos);
+--     new_line(2);
+--     escribir_escainos(Escainos);
+--     new_line(2);
+
+
+end prueba_calcular_escainos ;
